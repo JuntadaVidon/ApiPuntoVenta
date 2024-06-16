@@ -1,0 +1,23 @@
+﻿// Global using directives
+global using File = M4Facturation.Application.ResponseDto.Common.File;
+global using Amazon;
+global using Amazon.S3;
+global using Amazon.S3.Model;
+global using AutoMapper;
+global using M4Facturation.Application.Contracts;
+global using M4Facturation.Application.RequestDto.Example;
+global using M4Facturation.Application.ResponseDto.Common;
+global using M4Facturation.Application.Services;
+global using M4Facturation.Application.Utilites;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Caching.Memory;
+global using System.Collections.Concurrent;
+global using System.ComponentModel.DataAnnotations;
+global using System.Linq.Expressions;
+global using System.Net;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using FluentValidation;
+global using M4Facturation.Application.Repositories.Contracts;
+global using Profile = AutoMapper.Profile;
+global using M4Facturation.Domain.Auditable;
