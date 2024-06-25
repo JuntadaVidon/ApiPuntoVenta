@@ -1,6 +1,9 @@
 ﻿using FluentValidation;
 using M4Facturation.Application.Repositories.Contracts;
 using M4Facturation.Application.Repositories.Implementations;
+using M4Facturation.Application.UnitOfWork.Contracts;
+using M4Facturation.Application.UnitOfWork.Implementations;
+using M4Facturation.Domain.Models;
 
 namespace M4Facturation.API.Config;
 
@@ -38,12 +41,16 @@ public static class ServicesConfig
 
         //Se agrega la config auto mapper.
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-        
+
+        //Se agrega la config de la base de datos.
+        services.AddDbContext<PointSaleContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
         // Se agrega la configuración de FluentValidation
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
+
         //Se agrega la config de  los contextos.
-        
+
         // TODO: Descomentar cuando se tenga la configuración de roles y permisos
         // Política de autorización por defecto
         /* services.AddAuthorizationBuilder()
@@ -157,8 +164,11 @@ public static class ServicesConfig
         // Acá se añade el ciclo de vida de los servicios
         services.AddScoped<IFileService, FileService>();
         services.AddScoped<ICacheService, CacheService>();
-        
+        services.AddScoped<IProductService, ProductService>();
+
         //Acá se añaden los servicios de los repositorios
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 
 
