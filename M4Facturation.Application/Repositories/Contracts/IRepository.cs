@@ -54,14 +54,6 @@ public interface IRepository<TEntity> where TEntity : class
     Task<OperationResponse<bool>> DeleteAsync(int id);
 
     /// <summary>
-    /// Ejecuta una operación en una transacción.
-    /// </summary>
-    /// <param name="operation">Operación a ejecutar.</param>
-    /// <returns>Verdadero si la operación fue exitosa, falso en caso contrario.</returns>
-    Task<OperationResponse<bool>> ExecuteInTransactionAsync(
-        Func<Task<OperationResponse<bool>>> operation);
-
-    /// <summary>
     /// Obtiene todas las entidades que cumplen con la condición.
     /// </summary>
     /// <typeparam name="TDto">Tipo del DTO.</typeparam>

@@ -1,13 +1,10 @@
-﻿using System.Runtime.Intrinsics.X86;
-using Microsoft.EntityFrameworkCore;
-
-namespace M4Facturation.Application.Repositories.Implementations
+﻿namespace M4Facturation.Application.Repositories.Implementations
 {
     public abstract class Repository<TEntity>(
-        DbContext context,
+        PointSaleContext _context,
         ICacheService cacheService,
         IMapper mapper)
-        : BaseService(context, cacheService, mapper), IRepository<TEntity> where TEntity : class
+        : BaseService(cacheService, mapper), IRepository<TEntity> where TEntity : class
 
     {
         public async Task<OperationResponse<List<TDto>>> FindByConditionAsyncLongCache<TDto>(
@@ -105,34 +102,7 @@ namespace M4Facturation.Application.Repositories.Implementations
 
             return Ok(true);
         }
-
-        public async Task<OperationResponse<bool>> ExecuteInTransactionAsync(
-            Func<Task<OperationResponse<bool>>> operation)
-        {
-            await using var transaction = await _context.Database.BeginTransactionAsync();
-
-            try
-            {
-                var result = await operation();
-
-                if (result.Data)
-                {
-                    await transaction.CommitAsync();
-                }
-                else
-                {
-                    await transaction.RollbackAsync();
-                }
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                await transaction.RollbackAsync();
-                return InternalServerError<bool>(ex.Message);
-            }
-        }
-
+        
         public async Task<OperationResponse<List<TDto>>> GetAll<TDto>(
             Expression<Func<TEntity, bool>>? condition = null,
             params Expression<Func<TEntity, object>>[]? includeProperties)
