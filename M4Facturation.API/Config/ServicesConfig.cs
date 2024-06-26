@@ -31,6 +31,18 @@ public static class ServicesConfig
                     .AllowAnyHeader();
             });
         });
+        //Se agrega la config auto mapper.
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+        //Se agrega la config de la base de datos.
+        services.AddDbContext<PointSaleContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+       
+        var assembly = AppDomain.CurrentDomain.GetAssemblies()
+            .FirstOrDefault(x => x.FullName.Contains("M4Facturation.Application"));
+        
+        // Se agrega la configuración de FluentValidation
+        services.AddValidatorsFromAssembly(assembly);
 
         services.AddSwagger();
         services.AddJwt();
@@ -39,15 +51,6 @@ public static class ServicesConfig
         services.BindAppSettings(configuration);
         services.AddControllers();
 
-        //Se agrega la config auto mapper.
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-        //Se agrega la config de la base de datos.
-        services.AddDbContext<PointSaleContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-        // Se agrega la configuración de FluentValidation
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         //Se agrega la config de  los contextos.
 

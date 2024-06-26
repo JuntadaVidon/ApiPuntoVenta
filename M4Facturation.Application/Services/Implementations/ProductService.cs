@@ -1,9 +1,12 @@
-﻿namespace M4Facturation.Application.Services.Implementations
+﻿using M4Facturation.Application.Validators;
+
+namespace M4Facturation.Application.Services.Implementations
 {
-    public class ProductService(IUnitOfWork _unitOfWork, IMapper mapper) : BaseService(mapper), IProductService
+    public class ProductService(IUnitOfWork _unitOfWork, IMapper mapper, ProductValidator _validator)
+        : BaseService(mapper), IProductService
     {
         private readonly IProductRepository _repositoryProduct = _unitOfWork.GetRepository<IProductRepository>();
-        
+
         public async Task<OperationResponse<List<ProductDto>>> GetFilteredProductsAsync(ProductFilterDto filter)
         {
             // Se utliiza PredicateBuilder para construir la consulta de manera dinámica de la librería LinqKit
@@ -64,6 +67,14 @@
 
         public async Task<OperationResponse<ProductPostUpdate>> CreateOrUpdateAsync(ProductPostUpdate productDto)
         {
+            var validateResult = await _validator.ValidateAsync(productDto);
+
+            if (!validateResult.IsValid)
+            {
+                var errorMessage = string.Join(", ", validateResult.Errors.Select(error => error.ErrorMessage));
+                return BadRequest<ProductPostUpdate>(errorMessage);
+            }
+
             if (productDto.Id.HasValue)
             {
                 return await UpdateAsync(productDto);
