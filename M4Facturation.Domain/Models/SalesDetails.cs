@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace M4Facturation.Domain.Models;
+﻿namespace M4Facturation.Domain.Models;
 
 public partial class SalesDetails :IEntityAuditable
 {

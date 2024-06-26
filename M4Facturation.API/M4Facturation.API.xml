@@ -83,6 +83,34 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:M4Facturation.API.Controllers.ProductsController.Get(M4Facturation.Application.ResponseDto.Products.ProductFilterDto)">
+            <summary>
+            Obtiene una lista filtrada de productos según los criterios especificados.
+            </summary>
+            <param name="filter">Filtros a aplicar en la búsqueda de productos.</param>
+            <returns>Una operación asincrónica que devuelve una lista de productos filtrados.</returns>
+        </member>
+        <member name="M:M4Facturation.API.Controllers.ProductsController.GetById(System.Int32)">
+            <summary>
+            Obtiene un producto por su identificador único.
+            </summary>
+            <param name="id">Identificador único del producto.</param>
+            <returns>Una operación asincrónica que devuelve el producto encontrado.</returns>
+        </member>
+        <member name="M:M4Facturation.API.Controllers.ProductsController.Create(M4Facturation.Application.RequestDto.Products.ProductPostUpdate)">
+            <summary>
+            Crea un nuevo producto.
+            </summary>
+            <param name="productDto">Datos del producto a crear.</param>
+            <returns>Una operación asincrónica que devuelve el producto creado.</returns>
+        </member>
+        <member name="M:M4Facturation.API.Controllers.ProductsController.Delete(System.Int32)">
+            <summary>
+            Elimina un producto existente.
+            </summary>
+            <param name="id">Identificador único del producto a eliminar.</param>
+            <returns>Una operación asincrónica que indica si se eliminó correctamente.</returns>
+        </member>
         <member name="T:M4Facturation.API.Middlewares.GlobalExceptionHandlingMiddleware">
             <summary>
             Middleware para el manejo global de excepciones.

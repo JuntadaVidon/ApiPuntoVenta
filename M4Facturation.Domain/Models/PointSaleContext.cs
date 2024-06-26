@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-
-namespace M4Facturation.Domain.Models;
+﻿namespace M4Facturation.Domain.Models;
 
 public partial class PointSaleContext : DbContext
 {

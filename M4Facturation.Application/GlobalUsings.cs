@@ -23,6 +23,7 @@ global using FluentValidation;
 global using LinqKit;
 global using M4Facturation.Application.Repositories.Contracts;
 global using M4Facturation.Application.Repositories.Implementations;
+global using M4Facturation.Application.RequestDto.Products;
 global using M4Facturation.Application.ResponseDto.Products;
 global using M4Facturation.Application.UnitOfWork.Contracts;
 global using Profile = AutoMapper.Profile;

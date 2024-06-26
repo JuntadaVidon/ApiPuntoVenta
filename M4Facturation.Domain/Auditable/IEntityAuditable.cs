@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace M4Facturation.Domain.Auditable
+﻿namespace M4Facturation.Domain.Auditable
 {
     /// <summary>
     /// Interfaz para realizar las auditorias de las entities.

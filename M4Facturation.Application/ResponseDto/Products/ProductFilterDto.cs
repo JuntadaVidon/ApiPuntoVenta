@@ -7,5 +7,7 @@
         public decimal? MaxPrice { get; set; }
         public int? CategoryId { get; set; }
         public int? SupplierId { get; set; }
+        
+        public bool IsDeleted { get; set; }
     }
 }

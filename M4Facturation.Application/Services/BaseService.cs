@@ -1,11 +1,7 @@
-﻿using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
-
-namespace M4Facturation.Application.Services;
+﻿namespace M4Facturation.Application.Services;
 
 public abstract class BaseService
 {
-    protected readonly DbContext _context;
     protected readonly IMapper _mapper;
     protected readonly IMemoryCache _cache;
     protected readonly IHttpContextAccessor _httpContextAccessor;
@@ -17,10 +13,9 @@ public abstract class BaseService
     /// </summary>
     protected BaseService() { }
 
-    protected BaseService(DbContext context, ICacheService cacheService, IMapper mapper)
+    protected BaseService(ICacheService cacheService, IMapper mapper)
     {
         _cacheService = cacheService;
-        _context = context;
         _mapper = mapper;
     }
 
@@ -31,12 +26,9 @@ public abstract class BaseService
         _cache = cache;
     }
 
-    protected BaseService(DbContext contex, IMapper mapper,
-        IHttpContextAccessor httpContextAccessor)
+    protected BaseService(IMapper mapper)
     {
-        _context = contex;
         _mapper = mapper;
-        _httpContextAccessor = httpContextAccessor;
     }
 
 
@@ -79,7 +71,7 @@ public abstract class BaseService
     /// <returns>Una respuesta de operación con un código de estado 500, el mensaje proporcionado y la información de la excepción proporcionada.</returns>
     protected static OperationResponse<T> ServerErrorFile<T>(string exception)
         => OperationResponse<T>.ErrorFileResponse(exception);
-    
+
     /// <summary>
     /// Crea una respuesta de operación con un código de estado 500 (InternalServerError).
     /// </summary>
